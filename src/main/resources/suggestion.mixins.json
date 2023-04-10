@@ -6,7 +6,8 @@
     "BlockMixin",
     "meteor.CrystalAuraMixin",
     "meteor.blockesp.BlockEspMixin",
-    "meteor.blockesp.EspBlockMixin"
+    "meteor.blockesp.EspBlockMixin",
+    "meteor.ProfileMixin"
   ],
   "injectors": {
     "defaultRequire": 1
