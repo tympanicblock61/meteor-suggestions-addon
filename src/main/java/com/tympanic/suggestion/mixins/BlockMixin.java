@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(Block.class)
+@Mixin(value = Block.class, priority = 999)
 public class BlockMixin {
 
     @Inject(method = "getSlipperiness", at = @At("RETURN"), cancellable = true)
@@ -18,9 +18,14 @@ public class BlockMixin {
 
         AntiSlip antiSlip = Modules.get().get(AntiSlip.class);
         Block block = (Block) (Object) this;
+        System.out.println(block.toString());
 
-        if (antiSlip.isActive() && !antiSlip.blocks.get().contains(block)) {
+        if (antiSlip.isActive() && antiSlip.blocks.get().contains(block)) {
+            System.out.println("antislip?");
             info.setReturnValue(0.6f);
         }
     }
+
+
+
 }
