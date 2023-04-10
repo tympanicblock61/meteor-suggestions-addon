@@ -1,5 +1,5 @@
-//https://github.com/MeteorDevelopment/meteor-client/issues/3562
-package com.tympanic.suggestion.mixins;
+//raycast settings: https://github.com/MeteorDevelopment/meteor-client/issues/3562
+package com.tympanic.suggestion.mixins.meteor;
 
 import meteordevelopment.meteorclient.mixininterface.IRaycastContext;
 import meteordevelopment.meteorclient.settings.EnumSetting;

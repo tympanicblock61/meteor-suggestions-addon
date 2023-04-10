@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "id": "addon-template",
+  "id": "tympanic-suggestions",
   "version": "${version}",
-  "name": "Addon Template",
+  "name": "suggestions addon",
   "description": "addon made solely from suggestions on meteors github",
   "authors": [
     "tympanic"

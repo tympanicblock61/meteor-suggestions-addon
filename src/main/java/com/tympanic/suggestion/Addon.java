@@ -19,15 +19,8 @@ public class Addon extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        LOG.info("Initializing Meteor Addon Template");
-
-        // Modules
         Modules.get().add(new AntiSlip());
-
-        // Commands
         Commands.get().add(new CommandExample());
-
-        // HUD
         Hud.get().register(HudExample.INFO);
     }
 
@@ -38,6 +31,6 @@ public class Addon extends MeteorAddon {
 
     @Override
     public String getPackage() {
-        return "com.example.addon";
+        return "com.tympanic.suggestion";
     }
 }

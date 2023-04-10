@@ -1,4 +1,4 @@
-//https://github.com/MeteorDevelopment/meteor-client/issues/3035
+//anti-slip: https://github.com/MeteorDevelopment/meteor-client/issues/3035
 package com.tympanic.suggestion.modules;
 
 import meteordevelopment.meteorclient.settings.BlockListSetting;
@@ -27,8 +27,6 @@ public class AntiSlip extends Module {
     private boolean blockFilter(Block block) {
         return block == Blocks.ICE ||
             block == Blocks.PACKED_ICE ||
-            block == Blocks.BLUE_ICE ||
-            block == Blocks.HONEY_BLOCK ||
-            block == Blocks.SLIME_BLOCK;
+            block == Blocks.BLUE_ICE;
     }
 }
