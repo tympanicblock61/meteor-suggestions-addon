@@ -30,7 +30,7 @@ public abstract class ProfileMixin {
 
     public Setting<Keybind> keybind;
 
-    @Inject(method = "<init>", at = @At("TAIL"))
+    @Inject(method = "<init>*", at = @At("TAIL"))
     private void injectInit(CallbackInfo ci) {
         keybind = sgGeneral.add(new KeybindSetting.Builder()
             .name("keybind")
