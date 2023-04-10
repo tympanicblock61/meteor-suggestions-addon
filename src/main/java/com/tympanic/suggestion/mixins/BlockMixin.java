@@ -13,11 +13,8 @@ public class BlockMixin {
     @Inject(method = "getSlipperiness", at = @At("RETURN"), cancellable = true)
     public void getSlipperiness(CallbackInfoReturnable<Float> info) {
         if (Modules.get() == null) return;
-
         AntiSlip antiSlip = Modules.get().get(AntiSlip.class);
         Block block = (Block) (Object) this;
-        System.out.println(block.toString());
-
         if (antiSlip.isActive() && antiSlip.blocks.get().contains(block)) {
             info.setReturnValue(0.6f);
         }

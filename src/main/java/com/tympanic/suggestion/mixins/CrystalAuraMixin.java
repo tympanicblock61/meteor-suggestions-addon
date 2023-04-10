@@ -8,38 +8,27 @@ import meteordevelopment.meteorclient.settings.SettingGroup;
 import meteordevelopment.meteorclient.systems.modules.Category;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import meteordevelopment.meteorclient.systems.modules.combat.CrystalAura;
-import net.minecraft.util.hit.BlockHitResult;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(CrystalAura.class)
+@Mixin(value = CrystalAura.class, remap = false)
 public class CrystalAuraMixin extends Module {
-    public CrystalAuraMixin(Category category, String name, String description) {
-        super(category, name, description);
-    }
-
+    @Shadow
+    private RaycastContext raycastContext;
     private final SettingGroup sgRayCast = settings.createGroup("RayCast-settings");
     private Setting<RaycastContext.ShapeType> rayCastShape;
     private Setting<RaycastContext.FluidHandling> rayCastFluid;
-    @Shadow
-    private RaycastContext raycastContext;
-    @Shadow
-    @Final
-    private Vec3d vec3d;
-    @Shadow
-    @Final
-    private Vec3d vec3dRayTraceEnd;
-    @Shadow
-    @Final
-    private Vec3d playerEyePos;
+
+    public CrystalAuraMixin(Category category, String name, String description) {
+        super(category, name, description);
+    }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void injectInit(CallbackInfo ci) {
@@ -57,19 +46,12 @@ public class CrystalAuraMixin extends Module {
         );
     }
 
-    @Inject(method = "onActivate", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/world/RaycastContext;<init>(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/world/RaycastContext$ShapeType;Lnet/minecraft/world/RaycastContext$FluidHandling;Lnet/minecraft/entity/Entity;)V"))
-    private void onActivate(CallbackInfo info) {
-        assert mc.player != null;
-        raycastContext = new RaycastContext(new Vec3d(0, 0, 0), new Vec3d(0, 0, 0), rayCastShape.get(), rayCastFluid.get(), mc.player);
-    }
-
-    @Inject(method = "getPlaceInfo", at = @At(value = "INVOKE_ASSIGN", target = "Lmeteordevelopment/meteorclient/mixininterface/IRaycastContext;set(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/world/RaycastContext$ShapeType;Lnet/minecraft/world/RaycastContext$FluidHandling;Lnet/minecraft/entity/Entity;)V"))
-    private void getPlaceInfo(BlockPos blockPos, CallbackInfoReturnable<BlockHitResult> cir) {
+    @Redirect(method = "getPlaceInfo", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/mixininterface/IRaycastContext;set(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/world/RaycastContext$ShapeType;Lnet/minecraft/world/RaycastContext$FluidHandling;Lnet/minecraft/entity/Entity;)V"))
+    private void injectGetPlaceInfo(IRaycastContext instance, Vec3d vec3d, Vec3d vec3dRayTraceEnd, RaycastContext.ShapeType shapeType, RaycastContext.FluidHandling fluidHandling, Entity entity) {
         ((IRaycastContext) raycastContext).set(vec3d, vec3dRayTraceEnd, rayCastShape.get(), rayCastFluid.get(), mc.player);
     }
-
-    @Inject(method = "isOutOfRange", at = @At(value = "INVOKE_ASSIGN", target = "Lmeteordevelopment/meteorclient/mixininterface/IRaycastContext;set(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/world/RaycastContext$ShapeType;Lnet/minecraft/world/RaycastContext$FluidHandling;Lnet/minecraft/entity/Entity;)V"))
-    private void isOutOfRange(Vec3d vec3d, BlockPos blockPos, boolean place, CallbackInfoReturnable<Boolean> cir) {
+    @Redirect(method = "isOutOfRange", at = @At(value = "INVOKE", target = "Lmeteordevelopment/meteorclient/mixininterface/IRaycastContext;set(Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/util/math/Vec3d;Lnet/minecraft/world/RaycastContext$ShapeType;Lnet/minecraft/world/RaycastContext$FluidHandling;Lnet/minecraft/entity/Entity;)V"))
+    private void injectIsOutOfRange(IRaycastContext instance, Vec3d playerEyePos, Vec3d vec3d, RaycastContext.ShapeType shapeType, RaycastContext.FluidHandling fluidHandling, Entity entity) {
         ((IRaycastContext) raycastContext).set(playerEyePos, vec3d, rayCastShape.get(), rayCastFluid.get(), mc.player);
     }
 }
