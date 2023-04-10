@@ -20,7 +20,7 @@ public class BlockMixin {
         Block block = (Block) (Object) this;
 
         if (antiSlip.isActive() && !antiSlip.blocks.get().contains(block)) {
-            info.setReturnValue(0.01f);
+            info.setReturnValue(0.6f);
         }
     }
 }
