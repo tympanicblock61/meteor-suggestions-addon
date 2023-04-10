@@ -7,7 +7,6 @@ import meteordevelopment.meteorclient.systems.modules.Categories;
 import meteordevelopment.meteorclient.systems.modules.Module;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-
 import java.util.List;
 
 public class AntiSlip extends Module {
@@ -31,5 +30,4 @@ public class AntiSlip extends Module {
             block == Blocks.HONEY_BLOCK ||
             block == Blocks.SLIME_BLOCK;
     }
-
 }
