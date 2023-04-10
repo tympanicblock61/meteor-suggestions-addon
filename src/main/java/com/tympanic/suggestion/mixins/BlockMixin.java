@@ -1,6 +1,5 @@
 package com.tympanic.suggestion.mixins;
 
-
 import com.tympanic.suggestion.modules.AntiSlip;
 import meteordevelopment.meteorclient.systems.modules.Modules;
 import net.minecraft.block.Block;
@@ -11,7 +10,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = Block.class, priority = 999)
 public class BlockMixin {
-
     @Inject(method = "getSlipperiness", at = @At("RETURN"), cancellable = true)
     public void getSlipperiness(CallbackInfoReturnable<Float> info) {
         if (Modules.get() == null) return;
@@ -24,7 +22,4 @@ public class BlockMixin {
             info.setReturnValue(0.6f);
         }
     }
-
-
-
 }
