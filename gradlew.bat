@@ -65,6 +65,31 @@ echo location of your Java installation.
 goto fail
 
 :execute
+
+setlocal enabledelayedexpansion
+
+@rem i did not make this i just changed some shit to make it work
+set file=gradle.properties
+
+for /f "tokens=1,* delims==" %%A in (%file%) do (
+  if "%%A" equ "mod_version" (
+    set "version=%%B"
+    for /f "tokens=1-3,* delims=-" %%C in ("!version!") do (
+      set "major=%%C"
+      set "minor=%%D"
+      set "build=%%E"
+      set "suffix=%%F"
+    )
+    set /a "build+=1"
+    set "new_version=!major!-!minor!-!build!"
+    set "line=mod_version=!new_version!"
+  ) else (
+    set "line=%%A=%%B"
+  )
+  echo !line!>>temp.txt
+)
+
+move /y temp.txt %file%
 @rem Setup the command line
 
 set CLASSPATH=%APP_HOME%\gradle\wrapper\gradle-wrapper.jar

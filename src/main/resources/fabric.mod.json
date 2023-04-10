@@ -3,25 +3,25 @@
   "id": "addon-template",
   "version": "${version}",
   "name": "Addon Template",
-  "description": "An addon template for the Meteor addons.",
+  "description": "addon made solely from suggestions on meteors github",
   "authors": [
-    "seasnail"
+    "tympanic"
   ],
   "contact": {
-    "repo": "https://github.com/MeteorDevelopment/meteor-addon-template"
+    "repo": "https://github.com/tympanicblock61/meteor-suggestions-addon"
   },
-  "icon": "assets/template/icon.png",
+  "icon": "assets/tympanic/icon.png",
   "environment": "client",
   "entrypoints": {
     "meteor": [
-      "com.example.addon.Addon"
+      "com.tympanic.suggestion.Addon"
     ]
   },
   "mixins": [
-    "addon-template.mixins.json"
+    "suggestion.mixins.json"
   ],
   "custom": {
-    "meteor-client:color": "225,25,25"
+    "meteor-client:color": "0,255,255"
   },
   "depends": {
     "java": ">=17",
