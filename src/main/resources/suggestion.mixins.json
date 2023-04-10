@@ -3,7 +3,8 @@
   "package": "com.tympanic.suggestion.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "BlockMixin"
+    "BlockMixin",
+    "CrystalAuraMixin"
   ],
   "injectors": {
     "defaultRequire": 1
