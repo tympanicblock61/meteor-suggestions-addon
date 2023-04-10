@@ -21,7 +21,6 @@ public class BlockMixin {
         System.out.println(block.toString());
 
         if (antiSlip.isActive() && antiSlip.blocks.get().contains(block)) {
-            System.out.println("antislip?");
             info.setReturnValue(0.6f);
         }
     }

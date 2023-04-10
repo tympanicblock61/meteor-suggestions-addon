@@ -18,7 +18,7 @@ public class AntiSlip extends Module {
 
     public final Setting<List<Block>> blocks = sgGeneral.add(new BlockListSetting.Builder()
         .name("blocks")
-        .description("what blocks to remove slippery from")
+        .description("what blocks to remove slipperiness from")
         .defaultValue(Blocks.ICE)
         .filter(this::blockFilter)
         .build()
@@ -27,7 +27,9 @@ public class AntiSlip extends Module {
     private boolean blockFilter(Block block) {
         return block == Blocks.ICE ||
             block == Blocks.PACKED_ICE ||
-            block == Blocks.BLUE_ICE;
+            block == Blocks.BLUE_ICE ||
+            block == Blocks.HONEY_BLOCK ||
+            block == Blocks.SLIME_BLOCK;
     }
 
 }
