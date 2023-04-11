@@ -2,6 +2,7 @@ package com.tympanic.suggestion;
 
 import com.tympanic.suggestion.commands.CommandExample;
 import com.tympanic.suggestion.hud.HudExample;
+import com.tympanic.suggestion.modules.Prone;
 import com.tympanic.suggestion.modules.AntiSlip;
 import com.mojang.logging.LogUtils;
 import meteordevelopment.meteorclient.addons.MeteorAddon;
@@ -19,7 +20,9 @@ public class Addon extends MeteorAddon {
 
     @Override
     public void onInitialize() {
-        Modules.get().add(new AntiSlip());
+        Modules m = Modules.get();
+        m.add(new AntiSlip());
+        m.add(new Prone());
         Commands.get().add(new CommandExample());
         Hud.get().register(HudExample.INFO);
     }

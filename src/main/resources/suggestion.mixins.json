@@ -3,11 +3,12 @@
   "package": "com.tympanic.suggestion.mixins",
   "compatibilityLevel": "JAVA_17",
   "client": [
-    "BlockMixin",
+    "minecraft.BlockMixin",
+    "minecraft.EntityMixin",
     "meteor.CrystalAuraMixin",
+    "meteor.ProfileMixin",
     "meteor.blockesp.BlockEspMixin",
-    "meteor.blockesp.EspBlockMixin",
-    "meteor.ProfileMixin"
+    "meteor.blockesp.EspBlockMixin"
   ],
   "injectors": {
     "defaultRequire": 1
